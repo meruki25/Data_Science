@@ -5,6 +5,6 @@ import pandas as pd
 
 st.title("🎈Aplikasi Untuk Data Science")
 
-df = pd.read_csv("")
+#df = pd.read_csv("")
 st.button("Masukkan Dataset")
 
