@@ -44,8 +44,9 @@ if uploaded_file is not None:
         jumlah_noise = df_pilihan.isnull().sum().sum()
         
         # Tampilkan pesan noise
-        if jumlah_noise == 0:
-            st.write("Noise pada dataset tidak ditemukan")
+        if st.button("Cek Noise"):
+            if jumlah_noise == 0:
+                st.write("Noise pada dataset tidak ditemukan")
         else:
             st.write(f"Noise pada dataset ditemukan sebanyak {jumlah_noise}. Noise siap dihapus?")
             
