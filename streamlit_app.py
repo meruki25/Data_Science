@@ -39,3 +39,13 @@ if uploaded_file is not None:
         df_pilihan = df[kolom_pilihan]
         st.write("Kolom yang Dipilih:")
         st.write(df_pilihan)
+        
+        # Hapus noise pada kolom dan baris yang dipilih
+        st.write("Hapus Noise pada Kolom dan Baris yang Dipilih:")
+        df_pilihan = df_pilihan.dropna()  # Hapus baris dengan nilai kosong
+        df_pilihan = df_pilihan.apply(lambda x: x.str.strip() if x.dtype == "object" else x)  # Hapus spasi pada nilai string
+        df_pilihan = df_pilihan.apply(lambda x: x.astype(str).str.lower() if x.dtype == "object" else x)  # Ubah nilai string menjadi lowercase
+        
+        # Tampilkan hasil penghapusan noise
+        st.write("Hasil Penghapusan Noise:")
+        st.write(df_pilihan)
