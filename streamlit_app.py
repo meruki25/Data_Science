@@ -63,13 +63,13 @@ if uploaded_file is not None:
                 st.write(df_pilihan)
                 
             # Buat tombol untuk cek missing value
-            if missing_value == 0:
-                st.write("Missing Value tidak ditemukan!!!")
-            else:                
-                # Tampilkan jumlah missing value per kolom
-                missing_values = df_pilihan.isnull().sum()
-                st.write("Jumlah Missing Values per Kolom:")
-                st.write(missing_values[missing_values > 0])
+            if st.button("Cek Missing Value"):
+                if missing_value == 0:
+                    st.write("Missing Value tidak ditemukan!!!")            
+                    # Tampilkan jumlah missing value per kolom
+                    missing_values = df_pilihan.isnull().sum()
+                    st.write("Jumlah Missing Values per Kolom:")
+                    st.write(missing_values[missing_values > 0])
                 
                 # Pilih metode penanganan missing values
                 method = st.radio("Pilih metode penanganan missing values:", ["Hapus baris", "Isi dengan rata-rata", "Isi dengan modus"])
