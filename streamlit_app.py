@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import time
+from sklearn.preprocessing import MinMaxScaler
+
 
 st.title("🎈Aplikasi Untuk Data Science")
 
