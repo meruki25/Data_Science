@@ -112,10 +112,10 @@ if uploaded_file is not None:
                 st.write(df_pilihan)
 
              # Pilih jenis visualisasi
-            vis_type = st.selectbox(
+             vis_type = st.selectbox(
                 'Pilih Jenis Visualisasi',
                 ['Bar Chart', 'Pie Chart', 'Scatter Plot']
-            )
+             )
         
             # Tampilkan opsi kolom untuk plot
             columns_option = st.multiselect('Pilih Kolom untuk Plotting:', list(df.columns))
