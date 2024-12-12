@@ -40,12 +40,21 @@ if uploaded_file is not None:
         st.write("Kolom yang Dipilih:")
         st.write(df_pilihan)
         
-        # Hapus noise pada kolom dan baris yang dipilih
-        st.write("Hapus Noise pada Kolom dan Baris yang Dipilih:")
-        df_pilihan = df_pilihan.dropna()  # Hapus baris dengan nilai kosong
-        df_pilihan = df_pilihan.apply(lambda x: x.str.strip() if x.dtype == "object" else x)  # Hapus spasi pada nilai string
-        df_pilihan = df_pilihan.apply(lambda x: x.astype(str).str.lower() if x.dtype == "object" else x)  # Ubah nilai string menjadi lowercase
+        # Hitung jumlah noise pada kolom dan baris yang dipilih
+        jumlah_noise = df_pilihan.isnull().sum().sum()
         
-        # Tampilkan hasil penghapusan noise
-        st.write("Hasil Penghapusan Noise:")
-        st.write(df_pilihan)
+        # Tampilkan pesan noise
+        if jumlah_noise == 0:
+            st.write("Noise pada dataset tidak ditemukan")
+        else:
+            st.write(f"Noise pada dataset ditemukan sebanyak {jumlah_noise}. Noise siap dihapus?")
+            
+            # Buat tombol untuk menghapus noise
+            if st.button("Hapus Noise"):
+                df_pilihan = df_pilihan.dropna()  # Hapus baris dengan nilai kosong
+                df_pilihan = df_pilihan.apply(lambda x: x.str.strip() if x.dtype == "object" else x)  # Hapus spasi pada nilai string
+                df_pilihan = df_pilihan.apply(lambda x: x.astype(str).str.lower() if x.dtype == "object" else x)  # Ubah nilai string menjadi lowercase
+                
+                # Tampilkan hasil penghapusan noise
+                st.write("Hasil Penghapusan Noise:")
+                st.write(df_pilihan)
