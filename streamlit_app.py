@@ -7,7 +7,7 @@ import time
 st.title("🎈Aplikasi Untuk Data Science")
 
 # Buat tombol untuk memasukkan dataset
-uploaded_file = st.file_uploader("Pilih file dataset", type=["csv", "xlsx", "xls"])
+uploaded_file = st.file_uploader("*Pilih file dataset*", type=["csv", "xlsx", "xls"])
 
 # Jika tombol ditekan, maka akan memasukkan dataset
 if uploaded_file is not None:
@@ -20,4 +20,12 @@ if uploaded_file is not None:
     # Tampilkan dataset
     st.write("Dataset yang dipilih:")
     st.write(df)
-
+    
+    # Hitung jumlah baris dan kolom
+    jumlah_baris = df.shape[0]
+    jumlah_kolom = df.shape[1]
+    
+    # Tampilkan jumlah baris dan kolom
+    st.write("Informasi Dataset:")
+    st.write(f"Jumlah Baris: {jumlah_baris}")
+    st.write(f"Jumlah Kolom: {jumlah_kolom}")
