@@ -85,3 +85,24 @@ if uploaded_file is not None:
                     # Tampilkan hasil penanganan missing values
                     st.write("Hasil Penanganan Missing Values:")
                     st.write(df_pilihan)
+
+            # Normalisasi Data
+            if st.button("Normalisasi Data"):
+                scaler_option = st.radio("Pilih metode normalisasi:", ["Min-Max Scaling", "Z-score Normalization"])
+                
+                if scaler_option == "Min-Max Scaling":
+                    scaler = MinMaxScaler()
+                    df_normalized = pd.DataFrame(scaler.fit_transform(df_pilihan.select_dtypes(include=[np.number])), columns=df_pilihan.select_dtypes(include=[np.number]).columns)
+                    st.success("Data telah dinormalisasi menggunakan Min-Max Scaling.")
+                elif scaler_option == "Z-score Normalization":
+                    scaler = StandardScaler()
+                    df_normalized = pd.DataFrame(scaler.fit_transform(df_pilihan.select_dtypes(include=[np.number])), columns=df_pilihan.select_dtypes(include=[np.number]).columns)
+                    st.success("Data telah dinormalisasi menggunakan Z-score Normalization.")
+                
+                # Menyimpan hasil normalisasi ke dalam dataframe asli
+                for col in df_normalized.columns:
+                    df_pilihan[col] = df_normalized[col]
+                
+                # Tampilkan hasil normalisasi
+                st.write("Hasil Normalisasi Data:")
+                st.write(df_pilihan)
