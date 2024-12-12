@@ -46,7 +46,7 @@ if uploaded_file is not None:
         # Tampilkan pesan noise
         if st.button("Cek Noise"):
             if jumlah_noise == 0:
-                st.write("Noise pada dataset tidak ditemukan")
+                st.write("Noise pada dataset tidak ditemukan!!")
         else:
             st.write(f"Noise pada dataset ditemukan sebanyak {jumlah_noise}. Noise siap dihapus?")
             
@@ -59,3 +59,29 @@ if uploaded_file is not None:
                 # Tampilkan hasil penghapusan noise
                 st.write("Hasil Penghapusan Noise:")
                 st.write(df_pilihan)
+                
+            # Buat tombol untuk cek missing value
+            if st.button("Cek Missing Value"):
+                # Tampilkan jumlah missing value per kolom
+                missing_values = df_pilihan.isnull().sum()
+                st.write("Jumlah Missing Values per Kolom:")
+                st.write(missing_values[missing_values > 0])
+                
+                # Pilih metode penanganan missing values
+                method = st.radio("Pilih metode penanganan missing values:", ["Hapus baris", "Isi dengan rata-rata", "Isi dengan modus"])
+                
+                if st.button("Terapkan Penanganan"):
+                    if method == "Hapus baris":
+                        df_pilihan = df_pilihan.dropna()
+                        st.success("Baris dengan missing values telah dihapus.")
+                    elif method == "Isi dengan rata-rata":
+                        df_pilihan.fillna(df_pilihan.mean(), inplace=True)
+                        st.success("Missing values telah diisi dengan rata-rata.")
+                    elif method == "Isi dengan modus":
+                        for column in df_pilihan.select_dtypes(include=['object']).columns:
+                            df_pilihan[column].fillna(df_pilihan[column].mode()[0], inplace=True)
+                        st.success("Missing values telah diisi dengan modus.")
+                    
+                    # Tampilkan hasil penanganan missing values
+                    st.write("Hasil Penanganan Missing Values:")
+                    st.write(df_pilihan)
