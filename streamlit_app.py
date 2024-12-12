@@ -29,3 +29,13 @@ if uploaded_file is not None:
     st.write("Informasi Dataset:")
     st.write(f"Jumlah Baris: {jumlah_baris}")
     st.write(f"Jumlah Kolom: {jumlah_kolom}")
+    
+    # Pilih kolom yang diinginkan
+    st.write("Pilih Kolom yang Diinginkan:")
+    kolom_pilihan = st.multiselect("Pilih Kolom", df.columns)
+    
+    # Tampilkan kolom yang dipilih
+    if kolom_pilihan:
+        df_pilihan = df[kolom_pilihan]
+        st.write("Kolom yang Dipilih:")
+        st.write(df_pilihan)
