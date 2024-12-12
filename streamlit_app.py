@@ -47,9 +47,8 @@ if uploaded_file is not None:
         jumlah_noise = df_pilihan.isnull().sum().sum()
         
         # Tampilkan pesan noise
-        if st.button("Cek Noise"):
-            if jumlah_noise == 0:
-                st.write("Noise pada dataset tidak ditemukan!!")
+        if jumlah_noise == 0:
+            st.write("Noise pada dataset tidak ditemukan!!")
         else:
             st.write(f"Noise pada dataset ditemukan sebanyak {jumlah_noise}. Noise siap dihapus?")
             
@@ -64,7 +63,9 @@ if uploaded_file is not None:
                 st.write(df_pilihan)
                 
             # Buat tombol untuk cek missing value
-            if st.button("Cek Missing Value"):
+            if missing_value == 0:
+                st.write("Missing Value tidak ditemukan!!!")
+            else:                
                 # Tampilkan jumlah missing value per kolom
                 missing_values = df_pilihan.isnull().sum()
                 st.write("Jumlah Missing Values per Kolom:")
