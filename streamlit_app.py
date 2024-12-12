@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import time
 from sklearn.preprocessing import MinMaxScaler
+import plotly.express as px
 
 
 st.title("🎈Aplikasi Untuk Data Science")
@@ -108,3 +109,30 @@ if uploaded_file is not None:
                 # Tampilkan hasil normalisasi
                 st.write("Hasil Normalisasi Data:")
                 st.write(df_pilihan)
+
+             # Pilih jenis visualisasi
+            vis_type = st.selectbox(
+                'Pilih Jenis Visualisasi',
+                ['Bar Chart', 'Pie Chart', 'Scatter Plot']
+            )
+        
+            # Tampilkan opsi kolom untuk plot
+            columns_option = st.multiselect('Pilih Kolom untuk Plotting:', list(df.columns))
+        
+            if len(columns_option) > 0:
+                selected_df = df[columns_option].copy()
+        
+                if vis_type == 'Bar Chart':
+                    fig = px.bar(selected_df.melt(), x='variable', y='value')
+                    st.plotly_chart(fig)
+                
+                elif vis_type == 'Pie Chart':
+                    fig = px.pie(selected_df.sum().reset_index(name='total'), names=selected_df.columns.tolist())
+                    st.plotly_chart(fig)
+                
+                elif vis_type == 'Scatter Plot':
+                    fig = px.scatter(selected_df.reset_index(drop=True))
+                    for col in selected_df.columns[:-1]:
+                        fig.add_scatter(x=df[col], y=df[selected_df.columns[-1]])
+                    
+                    st.plotly_chart(fig)
